@@ -1,0 +1,32 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">My Referrals</h4>
+            </div>
+            <div class="card-body">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-sm-6">
+                            <input type='text' class="form-control"
+                                   placeholder='Type to filter the name column...' (keyup)='updateFilter($event)'
+                            />
+                        </div>
+                        <div class="col-sm-6">
+                            <select  class="form-control" (change)="updateLevel($event)">
+                                <option>Level</option>
+                                <option *ngFor="let level of levels; let i = index" value="{{ level }}">{{ level }}</option>
+                            </select>
+                        </div>
+                    </div>
+                    <ngx-datatable #table class='bootstrap' [columns]="columns" [columnMode]="'force'"
+                                   [headerHeight]="50" [footerHeight]="50"
+                                   [rowHeight]="'auto'" [limit]="10" [rows]='referrals' [headerHeight]="50"
+                                   [footerHeight]="50" [rowHeight]="'auto'"
+                    >
+                    </ngx-datatable>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

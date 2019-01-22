@@ -1,0 +1,8 @@
+@import '../../../../../node_modules/@swimlane/ngx-datatable/release/index.css';
+@import '../../../../../node_modules/@swimlane/ngx-datatable/release/themes/material.css';
+@import '../../../../../node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '../../../../../node_modules/@swimlane/ngx-datatable/release/assets/icons.css';
+
+#ico_time .btn.btn-link {
+    margin-bottom: 0px;
+}

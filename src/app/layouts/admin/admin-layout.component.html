@@ -1,0 +1,20 @@
+<div class="wrapper" [ngClass]="{'main-content': isAuthenticated}"
+     [ngStyle]="{'background-image': !isAuthenticated ? 'url(../../assets/img/bgForlogin2.svg)' : '' , 'background-size': 'cover'}">
+    <div *ngIf="isAuthenticated" class="app-sidebar" data-active-color="white" data-background-color="black">
+        <app-admin-sidebar></app-admin-sidebar>
+        <div class="sidebar-background"></div>
+    </div>
+    <div [ngClass]="{'main-panel': isAuthenticated}">
+        <app-navbar *ngIf="isAuthenticated"></app-navbar>
+        <div [ngClass]="{'main-content': isAuthenticated}">
+            <div class="content-wrapper">
+                <div class="container-fluid">
+                    <router-outlet></router-outlet>
+                </div>
+            </div>
+        </div>
+        <app-footer></app-footer>
+    </div>
+</div>
+
+

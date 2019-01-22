@@ -1,0 +1,111 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card security-settings">
+            <div class="card-header">
+                <h4 class="card-title">Security Settings</h4>
+            </div>
+            <div class="card-body">
+                <div class="card-block">
+                    <ngb-tabset>
+                        <ngb-tab title="2FA Settigs">
+                            <ng-template ngbTabContent>
+                                <h1>Mobile App based two-factor authentication
+                                    <label *ngIf="!is_tfa_active" class="btn btn-outline-danger">Disabled</label>
+                                    <label *ngIf="is_tfa_active" class="btn btn-outline-success">Enabled</label>
+                                </h1>
+
+                                <form *ngIf="!tooFA" class="col-md-6" name="form"
+                                      (ngSubmit)="f.form.valid && enableTFA()" #f="ngForm" novalidate>
+                                    <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                                        <label for="password">Password</label>
+                                        <input type="password" class="form-control  text-dark" id="password"
+                                               name="password"
+                                               [(ngModel)]="model.password" #password="ngModel"
+                                               required/>
+                                        <div *ngIf="f.submitted && !password.valid" class="help-block text-danger">
+                                            Password is
+                                            required
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <button [disabled]="loading" class="btn btn-pink btn-raised">{{ switcher_button
+                                            }}
+                                        </button>
+                                        <button *ngIf="is_tfa_active" [disabled]="loading" (click)="disableTFA()"
+                                                class="btn btn-pink btn-default">Disable 2FA
+                                        </button>
+                                        <img *ngIf="loading"
+                                             src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                                    </div>
+                                    <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+                                </form>
+
+                                <div [hidden]="!tooFA">
+
+                                    <ol>
+                                        <li>
+                                            Download mobile "Google Authenticator" app for your device
+                                        <a target="_blank" href="https://play.google.com/store/apps/details?id=com.google.android.apps.authenticator2">Android</a>,
+                                        <a target="_blank" href="https://itunes.apple.com/au/app/google-authenticator/id388497605">iPhone, iPad and iPod</a>,
+                                        <a target="_blank" href="https://www.microsoft.com/store/p/authenticator-for-windows/9nblggh4n8mx">Windows based devices</a>.
+                                        </li>
+                                        <li>
+                                            Write down this key <strong>{{ secret_code }}</strong> on the paper and store it safe. You will need it if you lose or change your device.
+                                        </li>
+                                        <li>
+                                            Install the "Google Authenticator" app. <strong>Scan QR barcode</strong> revealed below with mobile app.
+                                        </li>
+                                        <li>
+                                            Enter the Authentication code given your mobile app in the box.
+                                        </li>
+                                    </ol>
+
+                                    <form  class="col-md-6" name="form_fa"
+                                           (ngSubmit)="fa.form.valid && verifyCode()"
+                                           #fa="ngForm" novalidate>
+                                        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+                                        <div class="form-group">
+                                            <label>Scan QR</label>
+                                            <div class="col-12">
+                                                <img id="qr_code" name="qr_code" #qr_code src=""/>
+                                            </div>
+                                        </div>
+                                        <div class="form-group"
+                                             [ngClass]="{ 'has-error': fa.submitted && !auth_code.valid }">
+                                            <label for="secret_code">Secret code</label>
+                                            <input type="text" class="form-control  text-dark" id="secret_code"
+                                                   name="secret_code"
+                                                   [(ngModel)]="secret_code"
+                                                   disabled/>
+                                            <div class="help-block text-warning">Record this code to a safe place</div>
+                                        </div>
+                                        <div class="form-group"
+                                             [ngClass]="{ 'has-error': fa.submitted && !auth_code.valid }">
+                                            <label for="input_auth_code">Authentication code</label>
+                                            <input type="text" class="form-control  text-dark" id="input_auth_code"
+                                                   name="input_auth_code"
+                                                   [(ngModel)]="auth_code"
+                                                   #input_auth_code="ngModel"
+                                                   required/>
+                                            <div *ngIf="fa.submitted && !input_auth_code.valid"
+                                                 class="help-block text-danger">Auth code
+                                                is required
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <button [disabled]="verify_loading" class="btn btn-pink btn-block btn-raised">
+                                                Enable two-factor authentication
+                                            </button>
+                                            <img *ngIf="verify_loading"
+                                                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                                        </div>
+                                    </form>
+                                </div>
+                            </ng-template>
+                        </ngb-tab>
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,135 @@
+<div class="row">
+    <div class="col-md-12">
+        <div class="card wallets-card">
+            <div class="card-header">
+                <h1 class="card-title">Wallet</h1>
+            </div>
+            <div class="card-body wallets-card-body">
+                <div class="card-block row">
+                    <div class="col-md-4">
+                        <div class="card wallet">
+                            <div class="card-header">
+                                <img class="coin-logo" src="../../../../assets/img/bitcoin.png">
+                                <div class="coin-header">Bitcoin Wallet (BTC)</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-block">
+                                    <div class="wallet-block">
+                                        <div class="balance-label">Balance BTC</div>
+                                        <div class="balance">{{ coins.BTC.available_balance }}</div>
+                                        <div><span class="text-secondary font-medium-1">(Pending: {{ coins.BTC.pending_received_balance }})</span>
+                                        </div>
+                                    </div>
+                                    <div class="wallet-block bordered">
+                                        <div class="receive-label">Receive Bitcoin (BTC)</div>
+                                        <div class="receive-text">Get address to deposit bitcoins</div>
+                                        <div>
+                                            <button [disabled]="depo_btc_loading"
+                                                    class="wallet-button active btn btn-lg btn-round btn-info text-white"
+                                                    (click)="getWallet('BTC')">Deposit Bitcoins (BTC)
+                                            </button>
+                                            <img *ngIf="depo_btc_loading"
+                                                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                                        </div>
+                                        <div *ngIf="btc_error" class="buy-row">
+                                            <div class="alert alert-danger col-12">Failed to get address</div>
+                                        </div>
+                                    </div>
+                                    <div class="wallet-block bordered">
+                                        <div class="send-label">Send Bitcoin (BTC)</div>
+                                        <div class="send-text">Withdrawal will enable after ICO</div>
+                                        <div>
+                                            <button class="wallet-button active btn btn-lg btn-round btn-info text-white"
+                                                    (click)="openWithdrawWalletModal('BTC')">Withdraw Bitcoins (BTC)
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card wallet">
+                            <div class="card-header">
+                                <img class="coin-logo" src="../../../../assets/img/Litecoin.png">
+                                <div class="coin-header">Litecoin Wallet (LTC)</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-block">
+                                    <div class="wallet-block">
+                                        <div class="balance-label">Balance LTC</div>
+                                        <div class="balance">{{ coins.LTC.available_balance }}</div>
+                                        <div><span class="text-secondary font-medium-1">(Pending: {{ coins.LTC.pending_received_balance }})</span>
+                                        </div>
+                                    </div>
+                                    <div class="wallet-block bordered">
+                                        <div class="receive-label">Receive Litecoin (LTC)</div>
+                                        <div class="receive-text">Get address to deposit Litecoin</div>
+                                        <div>
+                                            <button [disabled]="depo_ltc_loading"
+                                                    class="wallet-button active btn btn-lg btn-round btn-info text-white"
+                                                    (click)="getWallet('LTC')">Deposit Litecoin (LTC)
+                                            </button>
+                                            <img *ngIf="depo_ltc_loading"
+                                                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                                        </div>
+                                        <div *ngIf="ltc_error" class="buy-row">
+                                            <div class="alert alert-danger col-12">Failed to get address</div>
+                                        </div>
+                                    </div>
+                                    <div class="wallet-block bordered">
+                                        <div class="send-label">Send Litecoin (LTC)</div>
+                                        <div class="send-text">Withdrawal will enable after ICO</div>
+                                        <div>
+                                            <button class="wallet-button active btn btn-lg btn-round btn-info text-white"
+                                                    (click)="openWithdrawWalletModal('LTC')">Withdraw Litecoin (LTC)
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-4">
+                        <div class="card wallet">
+                            <div class="card-header">
+                                <img class="coin-logo" src="../../../../assets/img/ABClogo.png">
+                                <div class="coin-header">BchConnect Wallet (BHCH)</div>
+                            </div>
+                            <div class="card-body">
+                                <div class="card-block">
+                                    <div class="wallet-block">
+                                        <div class="balance-label">Balance BHCH</div>
+                                        <div class="balance">{{ coins.ABC.available_balance }}</div>
+                                        <div><span class="text-secondary font-medium-1">(Pending: {{ coins.ABC.pending_received_balance }})</span>
+                                        </div>
+                                    </div>
+                                    <div class="wallet-block bordered">
+                                        <div class="receive-label">Receive BchConnect (BHCH)</div>
+                                        <div class="receive-text">Get address accept BchConnect payments</div>
+                                        <div>
+                                            <button
+                                                    class="wallet-button active btn btn-lg btn-round btn-info text-white"
+                                                    (click)="getWallet('BHCH')">Deposit BchConnect (BHCH)
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <div class="wallet-block bordered">
+                                        <div class="send-label">Send BchConnect (BHCH)</div>
+                                        <div class="receive-text">&nbsp;</div>
+                                        <div>
+                                            <button class="wallet-button active btn btn-lg btn-round btn-info text-white"
+                                                    (click)="openNotAvaliableModal('BHCH')">Withdraw BchConnect (BHCH)
+                                            </button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,38 @@
+<div class="row">
+  <div class="col-lg-6 image-block">
+    <img src="../../../assets/img/Abclogo2.png">
+  </div>
+  <div class="col-lg-6">
+    <div class="card ico-countdown">
+      <div class="card-header">
+      </div>
+      <div class="card-body">
+        <div class="card-block">
+          <h3>Pre ICO will be launched on {{ end.getDate() }} {{ monthNames[end.getMonth()] }} {{ end.getFullYear() }}</h3>
+          <div class="countdown">
+            <div class="clock-item">
+              <div class="card">{{ countdown.days }}</div>
+              <label>DAYS</label>
+            </div>
+            <div class="clock-item">
+            <div class=" card">{{  countdown.hours }}</div>
+              <label>HOURS</label>
+            </div>
+            <div class="clock-item">
+            <div class="card">{{  countdown.minutes }}</div>
+              <label>MINUTES</label>
+            </div>
+            <div  class="clock-item">
+            <div class="card"> {{  countdown.seconds }}</div>
+              <label>SECONDS</label>
+            </div>
+          </div>
+          <div>
+            <a routerLink="/ico" class="by-button btn btn-lg btn-raised btn-round btn-info">Buy BchConnect Coin</a>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

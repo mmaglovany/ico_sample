@@ -1,0 +1,125 @@
+.ico-card .ico-card-body{
+    border-top: 1px solid #00000020;
+    background: #f5f7fa;
+}
+.card .card-block.ico-countdown{
+    text-align: center;
+    padding: 0.5rem;
+}
+.ico-countdown .countdown{
+    margin: 0;
+}
+.ico-countdown .clock-item {
+    display: inline-block;
+    text-align: center;
+    min-width: 80px;
+}
+.ico-countdown .clock-item .card {
+    font-size: 30px;
+    padding: 5px;
+}
+.info-card .info-block{
+    padding: 36px 20px;
+}
+.info-card{
+    min-height: 180px;
+}
+.info-block{
+    text-align: center;
+}
+.info-block .title{
+    font-size: 25px;
+}
+.info-block .value{
+    font-size: 50px;
+    font-weight: 500;
+}
+.buy-card .buy-row .btn{
+    background-color: #337ab7 !important;
+}
+.buy-card .balance-block .btn{
+    border-radius: 1.5rem;
+    margin-bottom: 5px;
+    background-color: #337ab7 !important;
+}
+.buy-card .balance-block {
+    text-align: center;
+    padding: 10px;
+    font-size: 22px;
+    vertical-align: middle;
+}
+.buy-card .card-header {
+    padding: .75rem 1.25rem;
+}
+.buy-card .card-header .coin-logo{
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+}
+.buy-card .card-header .coin-header{
+    display: inline-block;
+    font-size: 30px;
+    font-weight: 600;
+    padding: 0 10px;
+    vertical-align: middle;
+}
+.buy-card .buy-row{
+    border-bottom: 1px solid #e9ecef;
+    font-size: 18px;
+    color: #666;
+    padding: 10px 0;
+    text-align: left;
+}
+.buy-card .buy-row .last-label{
+    text-align: right;
+}
+.buy-card .buy-row:last-child td{
+    border-bottom: none;
+}
+.buy-card .buy-row:last-child td:first-child{
+    border-bottom: none;
+    max-width: 60px;
+    color: #666;
+}
+.buy-card input{
+    border: none;
+    width: 100%;
+}
+
+.buy-card .buy-row .tfa-code i{
+    font-size: 1rem;
+}
+.buy-card .buy-row .tfa-code input{
+    max-width: 75px;
+}
+.buy-card .buy-row:last-child{
+    border: none;
+}
+.buy-card .buy-row .tfa-code{
+    display: inline-block;
+    border-bottom: 2px solid #e9ecef;
+    font-size: 18px;
+}
+.ico_modal{
+    text-align: center;
+}
+.ico_modal .btn.btn-info{
+    background-color: #337ab7 !important;
+}
+.ico_modal .modal-footer{
+    justify-content: center;
+}
+
+
+@media (max-width: 450px) {
+  .ico-countdown .clock-item .card{
+    font-size: 16px;
+    padding: 16px;
+  }
+  .ico-countdown .clock-item label{
+    font-size: 11px;
+  }
+  .ico-countdown .clock-item{
+    min-width: 40px;
+  }
+}

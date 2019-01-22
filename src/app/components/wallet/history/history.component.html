@@ -1,0 +1,130 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header">
+                <h4 class="card-title">History</h4>
+            </div>
+            <div class="card-body">
+                <div class="card-block">
+                    <ngb-tabset>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <div (click)="selectTab('BHCH')">BchConnect Wallet</div>
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type='text' class="form-control"
+                                               placeholder='Type to filter the description column...' (keyup)='serchFilter($event)'
+                                        />
+                                    </div>
+                                </div>
+                                <ngx-datatable #table class='bootstrap' [columns]="columns" [columnMode]="'flex'"
+                                               [rowHeight]="'auto'" [limit]="10" [rows]='transactions'
+                                               [headerHeight]="50"
+                                               [footerHeight]="'auto'"
+                                >
+                                    <ngx-datatable-column name="Date time" prop="createdAt" [flexGrow]="1">
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            {{value}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Amount"  prop="amount" [flexGrow]="1">
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            {{ row.type === 'ico'  ? '+ '+row.coins_received :'' }} {{ row.type === 'deposit' ? '+ '+row.amount :'' }}{{ row.type === 'withdraw' ?  '- '+row.amount :'' }}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Description" [flexGrow]="3" >
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            <div><strong>{{ row.type === 'ico' ? 'Buy '+row.currency_to :'' }} {{ row.type === 'deposit' ? 'Deposit '+row.currency_to :'' }}{{ row.type === 'withdraw' ? 'Withdraw'+row.currency_from :'' }}</strong></div>
+                                            <div>UNITS TOTAL {{ row.type === 'ico'  ? row.currency_to+': '+row.coins_received + ', PRICE '+row.amount :'' }} {{ row.type === 'deposit' ? row.currency_to+': '+row.amount :'' }}{{ row.type === 'withdraw' ? row.currency_from+': '+row.amount :'' }}</div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+
+                                </ngx-datatable>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <div (click)="selectTab('BTC')">Bitcoin Wallet</div>
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type='text' class="form-control"
+                                               placeholder='Type to filter the description column...' (keyup)='serchFilter($event)'
+                                        />
+                                    </div>
+                                </div>
+                                <ngx-datatable #table class='bootstrap' [columns]="columns" [columnMode]="'flex'"
+                                               [headerHeight]="50" [footerHeight]="50"
+                                               [rowHeight]="'auto'" [limit]="10" [rows]='transactions'
+                                               [headerHeight]="50"
+                                               [footerHeight]="50" [rowHeight]="'auto'"
+                                >
+                                    <ngx-datatable-column name="Date time" prop="createdAt" [flexGrow]="1">
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            {{value}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Amount"  prop="amount" [flexGrow]="1">
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            {{ row.type === 'ico'  ? '- '+row.amount :'' }} {{ row.type === 'deposit' ? '+ '+row.amount :'' }}{{ row.type === 'withdraw' ?  '- '+row.amount :'' }}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Description" [flexGrow]="3" >
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            <div><strong>{{ row.type === 'ico' ? 'Buy '+row.currency_to :'' }} {{ row.type === 'deposit' ? 'Deposit '+row.currency_to :'' }}{{ row.type === 'withdraw' ? 'Withdraw'+row.currency_from :'' }}</strong></div>
+                                            <div>UNITS TOTAL {{ row.type === 'ico'  ? row.currency_to+': '+row.coins_received + ', PRICE '+row.amount :'' }} {{ row.type === 'deposit' ? row.currency_to+': '+row.amount :'' }}{{ row.type === 'withdraw' ? row.currency_from+': '+row.amount :'' }}</div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+
+                                </ngx-datatable>
+                            </ng-template>
+                        </ngb-tab>
+                        <ngb-tab>
+                            <ng-template ngbTabTitle>
+                                <div (click)="selectTab('LTC')">Litecoin Wallet</div>
+                            </ng-template>
+                            <ng-template ngbTabContent>
+                                <div class="row">
+                                    <div class="col-sm-6">
+                                        <input type='text' class="form-control"
+                                               placeholder='Type to filter the description column...' (keyup)='serchFilter($event)'
+                                        />
+                                    </div>
+                                </div>
+                                <ngx-datatable #table class='bootstrap' [columns]="columns" [columnMode]="'flex'"
+                                               [headerHeight]="50" [footerHeight]="50"
+                                               [rowHeight]="'auto'" [limit]="10" [rows]='transactions'
+                                               [headerHeight]="50"
+                                               [footerHeight]="50" [rowHeight]="'auto'"
+                                >
+                                    <ngx-datatable-column name="Date time" prop="createdAt" [flexGrow]="1">
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            {{value}}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Amount"  prop="amount" [flexGrow]="1">
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            {{ row.type === 'ico'  ? '- '+row.amount :'' }} {{ row.type === 'deposit' ? '+ '+row.amount :'' }}{{ row.type === 'withdraw' ?  '- '+row.amount :'' }}
+                                        </ng-template>
+                                    </ngx-datatable-column>
+                                    <ngx-datatable-column name="Description" [flexGrow]="3" >
+                                        <ng-template let-row="row" let-value="value" ngx-datatable-cell-template>
+                                            <div><strong>{{ row.type === 'ico' ? 'Buy '+row.currency_to :'' }} {{ row.type === 'deposit' ? 'Deposit '+row.currency_to :'' }}{{ row.type === 'withdraw' ? 'Withdraw'+row.currency_from :'' }}</strong></div>
+                                            <div>UNITS TOTAL {{ row.type === 'ico'  ? row.currency_to+': '+row.coins_received + ', PRICE '+row.amount :'' }} {{ row.type === 'deposit' ? row.currency_to+': '+row.amount :'' }}{{ row.type === 'withdraw' ? row.currency_from+': '+row.amount :'' }}</div>
+                                        </ng-template>
+                                    </ngx-datatable-column>
+
+                                </ngx-datatable>
+                            </ng-template>
+                        </ngb-tab>
+
+                    </ngb-tabset>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

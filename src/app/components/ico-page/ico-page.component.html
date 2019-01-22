@@ -1,0 +1,216 @@
+<div class="row">
+    <div class="col-12">
+        <div class="card ico-card">
+            <div class="card-header">
+                <h4 class="card-title">ICO</h4>
+            </div>
+            <div class="card-body ico-card-body">
+                <div class="card-block">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card timer-card">
+                                <div class="card-body">
+                                    <div class="card-block ico-countdown info-block">
+                                        <div class="title">NEXT ICO WILL BEGIN IN</div>
+                                        <div class="countdown">
+                                            <div class="clock-item">
+                                                <div class="card">{{ countdown.days }}</div>
+                                                <label>DAYS</label>
+                                            </div>
+                                            <div class="clock-item">
+                                                <div class=" card">{{ countdown.hours }}</div>
+                                                <label>HOURS</label>
+                                            </div>
+                                            <div class="clock-item">
+                                                <div class="card">{{ countdown.minutes }}</div>
+                                                <label>MINUTES</label>
+                                            </div>
+                                            <div class="clock-item">
+                                                <div class="card"> {{ countdown.seconds }}</div>
+                                                <label>SECONDS</label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card info-card">
+                                <div class="card-body">
+                                    <div class="card-block info-block">
+                                        <h2>{{ ico_text }}</h2>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <!--<div class="col-lg-3 ">
+                            <div class="card info-card">
+                                <div class="card-body">
+                                    <div class="card-block info-block">
+                                        <div class="title">Total BchConnect Coin</div>
+                                        <div class="value">{{ ico_settings.ico_volume }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-3">
+                            <div class="card info-card">
+                                <div class="card-body">
+                                    <div class="card-block info-block">
+                                        <div class="title">Sold BchConnect Coin</div>
+                                        <div class="value">{{ ico_settings.sold_coins }}</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>-->
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card buy-card">
+                                <div class="card-header">
+                                    <img class="coin-logo" src="../../../../assets/img/bitcoin.png">
+                                    <div class="coin-header">Buy BHCH with Bitcoin</div>
+                                </div>
+                                <div class="card-body">
+                                    <form class="card-block" name="btc_form"
+                                          (ngSubmit)="btcf.form.valid && buyCoins('BTC')" #btcf="ngForm"
+                                          novalidate>
+                                        <div class="balance-block">
+                                            Balance: <strong>{{ coins.BTC.available_balance }}</strong> BTC
+                                            <button type="button" class="btn btn-default btn-info text-white"
+                                                    (click)="buyAll('BTC')">BUY
+                                                ALL
+                                            </button>
+                                        </div>
+                                        <div class="buy-block">
+                                            <div class="buy-row row">
+                                                <div class="first-label col-sm-2">Units</div>
+                                                <div class="col-sm-7"><input type="number"
+                                                                             min="0"
+                                                                             max="ico_settings.ico_volume"
+                                                                             name="btc_units"
+                                                                             #btc_units="ngModel"
+                                                                             step="1"
+                                                                             (input)="toFormatUnits('BTC')"
+                                                                             [(ngModel)]="coins.BTC.units"
+                                                                             placeholder="0.00000000"
+                                                                             required/></div>
+
+                                                <div class="last-label col-sm-3">BHCH Coin</div>
+                                            </div>
+                                            <div *ngIf="btcf.submitted && !btc_units.valid"
+                                                 class="help-block text-danger">Units is required
+                                            </div>
+                                            <div class="buy-row row">
+                                                <div class="first-label col-sm-2">Price</div>
+                                                <div class="col-sm-7">{{ coins.BTC.price }}</div>
+                                                <div class="last-label col-sm-3">BTC/BHCH</div>
+                                            </div>
+                                            <div class="buy-row row">
+                                                <div class="first-label col-sm-2">Total</div>
+                                                <div class="col-sm-7"
+                                                     [ngStyle]="{'color': coins.BTC.total > coins.BTC.available_balance  ? 'red' : ''}">
+                                                    {{ coins.BTC.total }}
+                                                </div>
+                                                <div class="last-label col-sm-3">BTC</div>
+                                            </div>
+                                            <div class="buy-row row">
+                                                <div class="last-label offset-sm-7 col-sm-5">
+                                                    <button type="submit" [disabled]="buy_btc_loading"
+                                                            class="btn btn-info text-white"><i
+                                                            class="ft-plus"></i>Buy BHCH
+                                                    </button>
+                                                    <img *ngIf="buy_btc_loading"
+                                                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="buy_btc_success" class="buy-row row">
+                                                <div class="alert alert-success col-12">Operation successful</div>
+                                            </div>
+                                            <div *ngIf="btc_error" class="buy-row row">
+                                                <div class="alert alert-danger col-12">
+                                                    <div *ngFor="let error of btc_errors;">{{ error }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="card buy-card">
+                                <div class="card-header">
+                                    <img class="coin-logo" src="../../../../assets/img/Litecoin.png">
+                                    <div class="coin-header">Buy BHCH with Litecoin</div>
+                                </div>
+                                <div class="card-body">
+                                    <form class="card-block" name="ltc_form"
+                                          (ngSubmit)="ltcf.form.valid && buyCoins('LTC')" #ltcf="ngForm"
+                                          novalidate>
+                                        <div class="balance-block">
+                                            Balance: <strong>{{ coins.LTC.available_balance }}</strong> LTC
+                                            <button type="button" class="btn btn-default btn-info text-white"
+                                                    (click)="buyAll('LTC')">BUY
+                                                ALL
+                                            </button>
+                                        </div>
+                                        <div class="buy-block">
+                                            <div class="buy-row row">
+                                                <div class="first-label col-sm-2">Units</div>
+                                                <div class="col-sm-7"><input type="number"
+                                                                             min="0"
+                                                                             max="ico_settings.ico_volume"
+                                                                             name="ltc_units"
+                                                                             #ltc_units="ngModel"
+                                                                             step="1"
+                                                                             (input)="toFormatUnits('LTC')"
+                                                                             [(ngModel)]="coins.LTC.units"
+                                                                             placeholder="0.00000000"
+                                                                             required="required"></div>
+                                                <div class="last-label col-sm-3">BHCH Coin</div>
+                                            </div>
+                                            <div *ngIf="ltcf.submitted && !ltc_units.valid"
+                                                 class="help-block text-danger">Units is required
+                                            </div>
+                                            <div class="buy-row row">
+                                                <div class="first-label col-sm-2">Price</div>
+                                                <div class="col-sm-7">{{ coins.LTC.price }}</div>
+                                                <div class="last-label col-sm-3">LTC/BHCH</div>
+                                            </div>
+                                            <div class="buy-row row">
+                                                <div class="first-label col-sm-2">Total</div>
+                                                <div class="col-sm-7"
+                                                     [ngStyle]="{'color': coins.LTC.total > coins.LTC.available_balance  ? 'red' : ''}">
+                                                    {{ coins.LTC.total }}
+                                                </div>
+                                                <div class="last-label col-sm-3">LTC</div>
+                                            </div>
+                                            <div class="buy-row row">
+                                                <div class="last-label offset-sm-7 col-sm-5">
+                                                    <button type="submit" [disabled]="buy_ltc_loading"
+                                                            class="btn btn-info text-white"><i
+                                                            class="ft-plus"></i>Buy BHCH
+                                                    </button>
+                                                    <img *ngIf="buy_ltc_loading"
+                                                         src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                                                </div>
+                                            </div>
+                                            <div *ngIf="buy_ltc_success" class="buy-row row">
+                                                <div class="alert alert-success col-12">Operation successful</div>
+                                            </div>
+                                            <div *ngIf="ltc_error" class="buy-row row">
+                                                <div class="alert alert-danger col-12">
+                                                    <div *ngFor="let error of ltc_errors;">{{ error }}</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

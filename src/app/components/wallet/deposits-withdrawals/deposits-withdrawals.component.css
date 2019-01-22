@@ -1,0 +1,168 @@
+.card .card-body {
+    padding: 50px 0;
+    text-align: center;
+}
+
+.btn.btn-in-table {
+    margin-bottom: 0px;
+    vertical-align: middle;
+}
+
+.deposit-table {
+    margin-top: 50px;
+}
+
+.deposit-table td {
+    vertical-align: middle;
+}
+
+.deposit-table .coin-logo {
+    max-width: 50px;
+    max-height: 50px;
+}
+
+.deposit-table .loading-icon {
+    position: relative;
+    margin: 10px;
+    top: auto;
+    left: auto;
+}
+
+.wallets-card .wallets-card-body {
+    border-top: 1px solid #00000020;
+    background: #f5f7fa;
+}
+
+.wallet {
+    text-align: left;
+}
+
+.wallet .card-header {
+    padding: .75rem 1.25rem;
+}
+
+.wallet .card-header .coin-logo {
+    display: inline-block;
+    width: 75px;
+    height: 75px;
+}
+
+.wallet .card-header .coin-header {
+    display: inline-block;
+    font-size: 0.875rem;
+    font-weight: 600;
+    padding: 0 10px;
+    vertical-align: middle;
+}
+
+.wallet .card-body .card-block {
+    padding: 10px 0;
+}
+
+.wallet .card-body .wallet-block .receive-text,
+.wallet .card-body .wallet-block .send-text {
+    font-size: 0.875rem;
+}
+
+.wallet .card-body .wallet-block .balance,
+.wallet .card-body .wallet-block .receive-label,
+.wallet .card-body .wallet-block .send-label {
+    font-weight: 600;
+    font-size: 1.3125rem;
+}
+
+.wallet .card-body .wallet-block .balance-label {
+    font-size: 0.875rem;
+}
+
+.wallet .card-body .wallet-block {
+    padding: 15px;
+}
+
+.wallet .card-body .wallet-block.bordered {
+    border-top: 1px solid #00000020;
+}
+
+.wallet .card-body .wallet-button.active {
+    background-color: #337ab7 !important;
+    box-shadow: none;
+    font-weight: 600;
+}
+
+.wallet .card-body .wallet-button {
+    margin-top: 20px;
+    color: #666;
+    font-size: 1rem;
+}
+
+.wallet .card-body .wallet-address .alert {
+    text-align: center;
+}
+
+.wallet .card-body .wallet-address {
+    text-align: center;
+}
+
+.wallet .card-body {
+    text-align: left;
+    padding: 0;
+}
+
+.modal-dialog .step-too img{
+    height: 250px;
+    width: 250px;
+}
+.modal-dialog .step-too {
+    text-align: center;
+}
+.modal-dialog .wallet-button.active {
+    background-color: #337ab7 !important;
+    box-shadow: none !important;
+    font-weight: 600;
+}
+
+.wallet-modal-text{
+    font-size: 2rem;
+}
+
+.withdraw-modal .balance-block .btn{
+    border-radius: 1.5rem;
+    margin-bottom: 5px;
+    background-color: #337ab7 !important;
+}
+.withdraw-modal .balance-block {
+    text-align: center;
+    padding: 10px;
+    font-size: 22px;
+    vertical-align: middle;
+}
+.withdraw-modal .modal-body .form-group{
+    margin: 1.5rem 10px 0;
+}
+.withdraw-modal .error-row{
+    padding: 0 10px;
+}
+.withdraw-modal .fee-row{
+    margin: 0 10px ;
+}
+.withdraw-modal .modal-footer{
+    border: none;
+}
+.withdraw-modal input{
+    border: none;
+}
+.withdraw-modal .form-group{
+    border-bottom: 1px solid #00000020;
+}
+@media (max-width: 450px) {
+  .wallet .card-header .coin-logo{
+    height: 34px;
+    width: 34px;
+  }
+  .wallet .card-header .coin-header{
+    font-size: 13px;
+  }
+  .wallet .card-body .wallet-button{
+    font-size: 13px;
+  }
+}

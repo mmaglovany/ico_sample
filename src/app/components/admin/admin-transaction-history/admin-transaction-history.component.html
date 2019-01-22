@@ -1,0 +1,25 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card">
+      <div class="card-header">
+        <h4 class="card-title">Transactions</h4>
+      </div>
+      <div class="card-body">
+        <div class="card-block">
+          <div class="row">
+            <div class="col-sm-6">
+              <input type='text' class="form-control"
+                     placeholder='Type to filter the name column...' (keyup)='updateFilter($event)'
+              />
+            </div>
+          </div>
+          <ngx-datatable #table class='bootstrap' [columns]="columns" [columnMode]="'force'"
+                         [rowHeight]="'auto'" [limit]="20" [rows]='history' [headerHeight]="50"
+                         [footerHeight]="'auto'"
+          >
+          </ngx-datatable>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

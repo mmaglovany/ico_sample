@@ -1,0 +1,86 @@
+<div class="row login-container">
+    <div class="col-12 d-flex align-items-center justify-content-center">
+        <div class="card  text-center width-800">
+            <div class="card-header">
+                <div class="d-inline-block float-left">
+                    <a routerLink="/">
+                        <img src="../../../assets/img/ABClogo.png">
+                    </a>
+                </div>
+                <div class="float-right login-menu">
+                    <a routerLink="/login"
+                       class="display-inline-block border-bottom border-blue text-bold-600 text-dark">Sign In</a>
+                </div>
+            </div>
+            <div class="card-body bg-light">
+                <div class="card-block">
+                    <h4 class="d-block login-header">Login to <span class="blue">Admin Panel!</span></h4>
+                    <form *ngIf="!tooFA" class="offset-md-3 col-md-6" name="form" (ngSubmit)="f.form.valid && login()" #f="ngForm" novalidate>
+                        <div *ngIf="error" class="alert alert-danger" [innerHTML]="error"></div>
+                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                            <div class="position-relative has-icon-left">
+                            <input type="text" class="form-control text-dark has-icon-left" id="email" name="email" [(ngModel)]="model.email"
+                                   #email="ngModel"
+                                   placeholder="Email"
+                                   email
+                                   required/>
+                                <div  class="form-control-position">
+                                    <i  class="ft-mail"></i>
+                                </div>
+                            </div>
+                            <div *ngIf="f.submitted && !email.valid" class="help-block text-danger">Email is required</div>
+                        </div>
+                        <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+                            <div class="position-relative has-icon-left">
+                            <input type="password" class="form-control has-icon-left text-dark" id="password" name="password"
+                                   [(ngModel)]="model.password" #password="ngModel"
+                                   placeholder="Password"
+                                   required/>
+                                <div  class="form-control-position">
+                                    <i  class="ft-lock"></i>
+                                </div>
+                            </div>
+                            <div *ngIf="f.submitted && !password.valid" class="help-block text-danger">Password is required</div>
+                        </div>
+                        <div class="form-group">
+                            <re-captcha (resolved)="resolved($event)"
+                                        siteKey="6LfVFDwUAAAAANFNuu1Qqhw9jZBUMZex_p3UUkd_"></re-captcha>
+                        </div>
+                        <div class="form-group">
+                            <button [disabled]="loading" class="login-button col-sm-10 btn btn-lg btn-raised btn-round btn-info">Login</button>
+                            <img *ngIf="loading"
+                                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </div>
+                        <div class="form-group">
+                            <p><a routerLink="/login/reset-password">Forgot password?</a></p>
+                        </div>
+                    </form>
+                    <form [hidden]="!tooFA" class="offset-md-3 col-md-6" name="form_fa" (ngSubmit)="fa.form.valid && verifyCode()" #fa="ngForm" novalidate>
+                        <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+                        <div class="form-group" [ngClass]="{ 'has-error': fa.submitted && !input_auth_code.valid }">
+                            <div class="position-relative has-icon-left">
+                                <input type="text" class="form-control  text-dark" id="input_auth_code" name="input_auth_code"
+                                       [(ngModel)]="auth_code"
+                                       placeholder="Auth code"
+                                       #input_auth_code="ngModel"
+                                       required/>
+                                <div  class="form-control-position">
+                                    <i  class="fa fa-qrcode"></i>
+                                </div>
+                            </div>
+                            <div *ngIf="fa.submitted && !input_auth_code.valid" class="help-block text-danger">Auth code is required</div>
+                        </div>
+                        <div class="form-group">
+                            <button [disabled]="verify_loading" class="login-button col-sm-10 btn btn-lg btn-raised btn-round btn-info">Verify code</button>
+                            <img *ngIf="verify_loading"
+                                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+                        </div>
+                        <div class="form-group">
+                            <p><a routerLink="/login/reset-password">Forgot password?</a></p>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

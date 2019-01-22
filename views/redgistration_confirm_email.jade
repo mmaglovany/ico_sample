@@ -1,0 +1,14 @@
+doctype html
+html
+  head
+    meta(http-equiv = 'Content-Type', content = 'text/html; charset=UTF-8')
+    title= subject
+    body
+      h1.h1= subject
+      p
+        strong Confirmation code:
+        h2.h2= confirmation_code
+      p
+        strong Confirmation url:
+        br
+        a(href= confirmation_url ).a= confirmation_url

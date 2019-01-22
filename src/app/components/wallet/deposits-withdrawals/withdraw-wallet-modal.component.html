@@ -1,0 +1,100 @@
+<form *ngIf="!success" class="withdraw-modal" name="form" (ngSubmit)="f.form.valid && withdraw()" #f="ngForm" novalidate>
+    <div class="modal-header">
+        <h1 class="modal-text wallet-modal-text">Withdrawal {{ coin_name }}</h1>
+    </div>
+    <div class="modal-body">
+        <div class="balance-block">
+            Balance: <strong>{{ available_balance }}</strong> {{ coin_name }}
+            <button type="button" class="btn btn-default btn-info text-white" (click)="withdrawAll()">
+                ALL
+            </button>
+        </div>
+        <div class="form-group row" [ngClass]="{ 'has-error': f.submitted && !address.valid }">
+            <div class="first-label col-sm-3">To Address</div>
+            <div class="col-sm-9">
+                <input type="text" class="form-control text-dark has-icon-left" name="address"
+                   [(ngModel)]="model.address"
+                   #address="ngModel"
+                   placeholder="{{ coin_name==='BTC'? 'Bitcoin':'' }}{{ coin_name==='LTC'? 'Litecoin':'' }} Address"
+                   (blur)="getFee()"
+                   required/>
+            </div>
+        </div>
+        <div *ngIf="f.submitted && !address.valid" class="help-block col-sm-12 text-danger">Address is required</div>
+        <div class="form-group row quantity-row" [ngClass]="{ 'has-error': f.submitted && !amount.valid }">
+            <div class="first-label col-sm-3">Quantity</div>
+            <div class="col-sm-9">
+                <input type="number" class="form-control text-dark has-icon-left" name="amount"
+                       [(ngModel)]="model.amount"
+                       min="{{ coin_name==='BTC'? 0.00002:0 }}{{ coin_name==='LTC'? 0.002:0 }}"
+                       step="1"
+                       placeholder="Quantity in {{ coin_name==='BTC'? 'Bitcoin':'' }}{{ coin_name==='LTC'? 'Litecoin':'' }}"
+                       #amount="ngModel"
+                       (blur)="getFee()"
+                       required/>
+            </div>
+        </div>
+        <div *ngIf="f.submitted && coin_name==='BTC' && model.amount < 0.00002" class="help-block col-sm-12 text-danger">Minimum amount is 0.00002 BTC.</div>
+        <div *ngIf="f.submitted && coin_name==='LTC' && model.amount < 0.002" class="help-block col-sm-12 text-danger">Minimum amount is 0.002 LTC.</div>
+        <div *ngIf="f.submitted && !amount.valid" class="help-block col-sm-12 text-danger">Amount is required.</div>
+        <div class="row fee-row">
+            <div class="first-label col-sm-12">
+                <div class="text-secondary">Transaction Fee: {{ model.fee }} {{ coin_name }}</div>
+            </div>
+        </div>
+        <div class="form-group row" [ngClass]="{ 'has-error': f.submitted && !password.valid }">
+            <div class="first-label col-sm-3">Password</div>
+            <div class="col-sm-9">
+                <input type="password" class="form-control has-icon-left text-dark" id="password" name="password"
+                       [(ngModel)]="model.password" #password="ngModel"
+                       placeholder="Enter your Password"
+                       required/>
+            </div>
+
+        </div>
+        <div *ngIf="f.submitted && !password.valid" class="help-block col-sm-12 text-danger">Password is required</div>
+
+        <div *ngIf="is_tfa_active">
+            <div class="form-group row" [ngClass]="{ 'has-error': f.submitted && !tfa_auth.valid }">
+                <div class="first-label col-sm-3">2FA Code</div>
+                <div class="col-sm-9">
+                    <input type="text" class="form-control text-dark has-icon-left" placeholder="000000" name="tfa_auth"
+                           #tfa_auth="ngModel" [(ngModel)]="model.tfa_auth" required>
+                </div>
+            </div>
+            <div *ngIf="is_tfa_active && tfa_auth_error" class="help-block col-sm-12 text-danger">2FA Code is required</div>
+        </div>
+
+        <div *ngIf="error" class="form-group row error-row">
+            <div class="alert alert-danger col-sm-12">
+                <div *ngFor="let error of errors;">{{ error }}</div>
+            </div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-raised btn-lg"
+                (click)="activeModal.close(closeResult)">
+            Cancel
+        </button>
+        <button type="submit" class="wallet-button active btn btn-lg btn-round btn-info text-white">
+            Withdrawal
+            <img *ngIf="loading"
+                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        </button>
+    </div>
+</form>
+<div *ngIf="success">
+    <div class="modal-header">
+        <h1 class="modal-text wallet-modal-text">Withdraw {{ coin_name }}!</h1>
+    </div>
+    <div class="modal-body">
+        <div class="alert alert-success">
+            <h2>Success!</h2>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-raised" (click)="activeModal.close(closeResult)">
+            Close
+        </button>
+    </div>
+</div>

@@ -1,0 +1,15 @@
+.app-sidebar .sidebar-header .logo{
+    padding: 5px 20px 20px 20px;
+}
+.sidebar-header a.nav-toggle{
+    top: 20px;
+}
+.sidebar-header .logo .logo-img img{
+    max-width: 43px;
+}
+.app-sidebar .navigation .menu-title, .off-canvas-sidebar .navigation .menu-title {
+    font-size: 14px;
+}
+.app-sidebar .logo .logo-text{
+    text-transform: none;
+}

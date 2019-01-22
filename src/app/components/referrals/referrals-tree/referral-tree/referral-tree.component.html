@@ -1,0 +1,6 @@
+<ul *ngIf="items.length">
+    <li *ngFor="let item of items">
+        <label>{{item.user_name}}</label>
+        <app-referral-tree *ngIf="(item[key] && item[key].length)" [key]="key" [data]="item[key]"></app-referral-tree>
+    </li>
+</ul>

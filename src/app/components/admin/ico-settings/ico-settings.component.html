@@ -1,0 +1,144 @@
+<div class="row">
+  <div class="col-12">
+    <div class="card offset-md-3 col-md-6">
+      <div class="card-header">
+        <h4 class="card-title">ICO Settings</h4>
+      </div>
+      <div class="card-body">
+        <div class="card-block">
+          <form name="form" (ngSubmit)="f.form.valid && saveSettings()" #f="ngForm" novalidate>
+
+            <div class="form-group">
+              <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                <input type="checkbox" name="ico_enabled"
+                       class="custom-control-input"
+                       [(ngModel)]="settings.ico_enabled"
+                       #ico_enabled="ngModel"
+                />
+                <span class="custom-control-indicator ml-4"></span>
+                <span class="pl-4 line-height-2">Ico Enabled.</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                <input type="checkbox" name="withdraw_enable"
+                       class="custom-control-input"
+                       [(ngModel)]="settings.withdraw_enable"
+                       #withdraw_enable="ngModel"
+                />
+                <span class="custom-control-indicator ml-4"></span>
+                <span class="pl-4 line-height-2">Withdrawal Enabled.</span>
+              </label>
+            </div>
+            <div class="form-group">
+              <label for="ico_date">Date of the ICO</label>
+              <div class="form-group">
+                <div class="input-group">
+                  <input class="form-control" placeholder="yyyy-mm-dd" id="ico_date"
+                         name="ico_date" [(ngModel)]="settings.ico_date" ngbDatepicker
+                         #ico_date="ngbDatepicker">
+                  <button class="input-group-addon" (click)="ico_date.toggle()" type="button">
+                    <i class="fa fa-calendar"></i>
+                  </button>
+                </div>
+              </div>
+              <!--<div *ngIf="f.submitted && !ico_date.valid" class="help-block text-danger">
+                  Date invalid
+              </div>-->
+            </div>
+            <div class="form-group">
+              <label for="ico_time">Start time of the ICO</label>
+              <ngb-timepicker [(ngModel)]="settings.ico_time" id="ico_time"
+                              name="ico_time"></ngb-timepicker>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !ico_volume.valid }">
+              <label for="ico_volume">Ico volume</label>
+              <input type="number" class="form-control  text-dark" id="ico_volume"
+                     name="ico_volume"
+                     min="0"
+                     [(ngModel)]="settings.ico_volume" #ico_volume="ngModel"
+                     required/>
+              <div *ngIf="f.submitted && !ico_volume.valid" class="help-block text-danger">
+                Maximum volume coins is required
+              </div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !ico_max_coins_day.valid }">
+              <label for="ico_max_coins_day">Maximum coins on Sale for the day</label>
+              <input type="number" class="form-control  text-dark" id="ico_max_coins_day"
+                     name="ico_max_coins_day"
+                     min="0"
+                     [(ngModel)]="settings.ico_max_coins_day" #ico_max_coins_day="ngModel"
+                     required/>
+              <div *ngIf="f.submitted && !ico_max_coins_day.valid" class="help-block text-danger">
+                Maximum coins is required
+              </div>
+            </div>
+            <div class="form-group"
+                 [ngClass]="{ 'has-error': f.submitted && !ico_max_user_coins_day.valid }">
+              <label for="ico_max_user_coins_day">Maximum Coins for user per day</label>
+              <input type="number" class="form-control  text-dark" id="ico_max_user_coins_day"
+                     name="ico_max_user_coins"
+                     min="0"
+                     [(ngModel)]="settings.ico_max_user_coins_day" #ico_max_user_coins_day="ngModel"
+                     required/>
+              <div *ngIf="f.submitted && !ico_max_user_coins_day.valid" class="help-block text-danger">
+                Maximum user coins is required
+              </div>
+            </div>
+            <div class="form-group"
+                 [ngClass]="{ 'has-error': f.submitted && !ico_min_user_coins_day.valid }">
+              <label for="ico_min_user_coins_day">Minimum Coins for user per day</label>
+              <input type="number" class="form-control  text-dark" id="ico_min_user_coins_day"
+                     name="ico_min_user_coins_day"
+                     min="0"
+                     [(ngModel)]="settings.ico_min_user_coins_day" #ico_min_user_coins_day="ngModel"
+                     required/>
+              <div *ngIf="f.submitted && !ico_min_user_coins_day.valid" class="help-block text-danger">
+                Minimum user coins is required
+              </div>
+            </div>
+            <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !abc_rate.valid }">
+              <label for="ico_min_user_coins_day">ICO BHCH rate (USD)</label>
+              <input type="number" class="form-control  text-dark" id="abc_rate"
+                     name="abc_rate"
+                     min="0"
+                     [(ngModel)]="settings.abc_rate" #abc_rate="ngModel"
+                     required/>
+              <div *ngIf="f.submitted && !abc_rate.valid" class="help-block text-danger">
+                BHCH rate is required
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Transactions notifications id</label>
+              <input type="text" class="form-control  text-dark col-sm-5" id="btc_transactions_notification_id"
+                     name="btc_transactions_notification_id"
+                     [(ngModel)]="settings.btc_transactions_notification_id"
+                     disabled
+              />
+              <input type="text" class="form-control  text-dark col-sm-5" id="ltc_transactions_notification_id"
+                     name="ltc_transactions_notification_id"
+                     [(ngModel)]="settings.ltc_transactions_notification_id"
+                     disabled
+              />
+              <button type="button" (click)="resetNotification()" class="btn btn-raised col-sm-5">Reset Notification
+                Endpoint
+                <img *ngIf="loading_notification"
+                     src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+              </button>
+            </div>
+            <div class="form-group">
+              <button [disabled]="loading" class="btn btn-pink btn-raised">Save
+                <img *ngIf="loading"
+                     src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+              </button>
+            </div>
+            <div class="form-group">
+              <label>Commit version: {{ settings.version }}</label>
+            </div>
+            <div *ngIf="error" class="alert alert-danger">{{error}}</div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

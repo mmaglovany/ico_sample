@@ -1,0 +1,49 @@
+<div class="row confirmation-container">
+  <div class="col-12">
+    <div *ngIf="confirmed"  class="card offset-sm-4 col-sm-4">
+      <div class="card-header">
+        <h4 class="card-title">Your email was successfully verified!</h4>
+      </div>
+      <div class="card-body">
+        <div class="card-block">
+          <h2 class=" col-md-12 text-center cursor-pointer thank">Thank you for registeration!</h2>
+          <div class="form-group">
+            <a routerLink="/login" href="" class="btn btn-success text-white btn-block">Go to Login!</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="!confirmed"  class="card offset-sm-4 col-sm-4">
+      <div class="card-header">
+        <h4 class="card-title">Your email verification failed!</h4>
+      </div>
+      <div class="card-body">
+        <div class="card-block">
+          <form class="row" name="form_confirm" (ngSubmit)="f.form.valid && resend_email()" #f="ngForm" novalidate>
+            <div *ngIf="error" class="col-md-12  alert alert-danger" [innerHTML]="error"></div>
+            <div class="col-md-12">
+              <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                <label for="email">Email</label>
+                <input type="email" class="form-control" id="email" name="email" [(ngModel)]="user_email"
+                       email
+                       #email="ngModel"
+                       placeholder="Email"
+                       required/>
+                <div *ngIf="f.submitted && !email.valid" class="help-block text-danger">Email is not valid</div>
+              </div>
+              <div class="form-group">
+                <re-captcha (resolved)="resolved($event)" [(ngModel)]="recapcha"  [ngModelOptions]="{standalone: true}" siteKey="6LfVFDwUAAAAANFNuu1Qqhw9jZBUMZex_p3UUkd_"></re-captcha>
+              </div>
+              <div class="form-group">
+                <button [disabled]="loading" type="submit" class="btn btn-primary btn-block text-white">Confirm</button>
+                <img *ngIf="loading"
+                     src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>

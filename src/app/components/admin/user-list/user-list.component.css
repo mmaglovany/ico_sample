@@ -1,0 +1,29 @@
+@import '../../../../../node_modules/@swimlane/ngx-datatable/release/index.css';
+@import '../../../../../node_modules/@swimlane/ngx-datatable/release/themes/material.css';
+@import '../../../../../node_modules/@swimlane/ngx-datatable/release/themes/bootstrap.css';
+@import '../../../../../node_modules/@swimlane/ngx-datatable/release/assets/icons.css';
+
+@media (max-width: 450px) {
+  .nav-tabs .nav-item .nav-link{
+    padding: 0.5rem 0.2rem;
+  }
+  .nav-tabs .nav-item{
+    max-width: 80px;
+    font-size: 13px;
+  }
+  .tab-content{
+    padding: 0.5rem 0.2rem;
+  }
+  .ngx-datatable.bootstrap{
+    font-size: 10px;
+  }
+  .ngx-datatable.bootstrap .datatable-body .datatable-body-row{
+    padding: 0.7rem 1px;
+  }
+  .ngx-datatable.bootstrap .datatable-footer .page-count{
+    padding: 0 0.3rem;
+  }
+  .ngx-datatable.bootstrap .datatable-header .datatable-header-cell{
+    padding: 0.75rem 0.3rem;
+  }
+}

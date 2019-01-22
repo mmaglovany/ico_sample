@@ -1,0 +1,81 @@
+.width-850 {
+    width: 850px !important;
+}
+.intl-tel-input .country-list .country-name,
+.intl-tel-input .country-list .country-name {
+    color: #000 !important;
+}
+
+.intl-tel-input {
+    width: 100%;
+}
+
+re-captcha div:first-child {
+    height: auto !important;
+    width: auto !important;
+}
+
+.register-container .card-header {
+    padding: 0 10px;
+}
+.register-container .card-header {
+    padding: 0 10px;
+}
+
+.register-container .card-header img {
+    width: 80px;
+    height: 80px;
+}
+
+.register-container .card-header .register-menu a {
+    height: 100%;
+    margin: 0 2px;
+    padding: 40px 20px 11px;
+    text-decoration: none;
+    border-bottom: solid 5px;
+}
+
+.register-container .register-header {
+    margin: 25px 0;
+}
+
+.register-container .register-button {
+    border-radius: 1.5rem;
+    background-color: #4285f4 !important;
+}
+
+footer {
+    padding: 0;
+    color: #fff;
+}
+
+@media (min-width: 992px) {
+    .register-container .card {
+        margin-top: 100px;
+    }
+}
+
+
+
+@media screen and (max-width: 410px) {
+    re-captcha iframe {
+        transform: scale(0.77);
+        -webkit-transform: scale(0.77);
+        -moz-transform: scale(0.77);
+        -ms-transform: scale(0.77);
+        -o-transform: scale(0.77);
+        transform-origin: 0 0;
+        -webkit-transform-origin: 0 0;
+        -moz-transform-origin: 0 0;
+        -ms-transform-origin: 0 0;
+        -o-transform-origin: 0 0;
+    }
+
+    .register-container .card-header img {
+        width: 69px;
+        height: 69px;
+    }
+    .sign-up-text{
+        display: block;
+    }
+}

@@ -1,0 +1,82 @@
+<div [hidden]="!step_too_comon">
+    <div [hidden]="step_too" class="modal-body">
+        <h1 class="modal-text">Important!</h1>
+        <p class="modal-text">If you generete a {{ coin_name }} address and do not send any coins in the next 2 days? your account will be automatically locked until the ICO.</p>
+        <p>This is to reduce the spam and provide a seam less experience to our users during the ICO.</p>
+        <div class="form-group col-md-12">
+            <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                <input type="checkbox" id="terms_agreement" name="terms_agreement"
+                       class="custom-control-input"
+                       [(ngModel)]="is_agree"
+                       #terms_agreement="ngModel"
+                       required/>
+                <span class="custom-control-indicator ml-4"></span>
+                <span class="pl-4 line-height-2">I agree to the terms and conditions.</span>
+            </label>
+        </div>
+        <div *ngIf="is_agree_error" class="buy-row">
+            <div class="alert alert-danger col-12">You mast  agree to the terms and conditions.</div>
+        </div>
+        <div *ngIf="error" class="buy-row">
+            <div class="alert alert-danger col-12">Failed to get address</div>
+        </div>
+    </div>
+    <div [hidden]="step_too" class="modal-footer">
+        <button type="button" class="wallet-button active btn btn-lg btn-round btn-info text-white" (click)="getAddress(coin_name)">
+            Generate Address
+            <img *ngIf="loading"
+                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        </button>
+
+        <button type="button" class="wallet-button active btn btn-lg btn-round btn-info text-white" (click)="activeModal.close('Close click')">
+            Generate Later
+        </button>
+    </div>
+
+
+    <div [hidden]="!step_too" class="modal-body step-too">
+        <h1 class="modal-text wallet-modal-text">{{ coin_name }} Wallet Address!</h1>
+        <div>
+            <img id="qr_code" name="qr_code" #qr_code src=""/>
+        </div>
+        <div class="input-group d-inline-flex ">
+            <input class="form-control" placeholder="" [(ngModel)]="address" type="text" readonly>
+            <span class="input-group-btn">
+            <button class="btn btn-raised btn-primary wallet-button active" type="button" (click)="copyAddress()" ngxClipboard
+                    [cbContent]="address"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy</button>
+        </span>
+        </div>
+        <div *ngIf="is_coppied">
+            <div class="alert alert-success col-12">Copied</div>
+        </div>
+    </div>
+    <div [hidden]="!step_too" class="modal-footer">
+        <button type="button" class="wallet-button active btn btn-lg btn-round btn-info text-white" (click)="activeModal.close('Close click')">
+            OK
+        </button>
+    </div>
+</div>
+
+<div [hidden]="step_too_comon">
+    <div class="modal-body step-too">
+        <h1 class="modal-text wallet-modal-text">{{ coin_name }} Wallet Address!</h1>
+        <div>
+            <img id="qr_code_old" name="qr_code_old" #qr_code src=""/>
+        </div>
+        <div class="input-group d-inline-flex ">
+            <input class="form-control" placeholder="" [(ngModel)]="coins[coin_name].address" type="text" readonly>
+            <span class="input-group-btn">
+            <button class="btn btn-raised btn-primary wallet-button active" type="button" ngxClipboard (click)="copyAddress()"
+                    [cbContent]="coins[coin_name].address"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy</button>
+        </span>
+        </div>
+        <div *ngIf="is_coppied">
+            <div class="alert alert-success col-12">Copied</div>
+        </div>
+    </div>
+    <div class="modal-footer">
+        <button type="button" class="wallet-button active btn btn-lg btn-round btn-info text-white" (click)="activeModal.close('Close click')">
+            OK
+        </button>
+    </div>
+</div>

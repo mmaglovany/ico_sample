@@ -1,0 +1,103 @@
+.content-top-bar{
+    padding: 10px 0px 0px;
+    border-bottom: 1px solid #00000020;
+}
+.content-top-bar .card{
+    margin: 0;
+    padding: 10px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: none;
+    vertical-align: middle;
+    width: 100%;
+}
+.content-top-bar .card span{
+    display: block;
+    vertical-align: middle;
+}
+.content-top-bar button.btn-raised{
+    background-color: #337ab7 !important;
+}
+.content-top-bar .exchange button{
+    margin: auto;
+}
+.modal-dialog .modal-text{
+    word-wrap: break-word;
+}
+
+.exchange{
+    text-align: center;
+    padding: 5px 0;
+
+}
+.exchange .exchange-item{
+    width: 19%;
+    display: inline-block;
+    margin-bottom: 2px;
+}
+.exchange .exchange-item .btn{
+    width: 100%;
+    max-width: 100%;
+    min-width: 100%;
+    font-size: 14px;
+}
+.exchange .exchange-item .card{
+    width: 100%;
+    margin: 0;
+    font-size: 14px;
+}
+
+@media (max-width: 1496px) {
+    .exchange .exchange-item .card{
+       font-size: 14px;
+    }
+    .exchange .exchange-item .btn{
+        padding: 10px 5px;
+        font-size: 14px;
+    }
+}
+@media (max-width: 1258px) {
+    .exchange .exchange-item{
+        width: 18%;
+    }
+    .exchange .exchange-item .card{
+       font-size: 14px;
+    }
+    .exchange .exchange-item .btn{
+        padding: 10px 5px;
+        font-size: 14px;
+    }
+    .exchange .exchange-item .btn .arrows{
+        display: none;
+    }
+}
+@media (max-width: 577px) {
+    .exchange {
+        min-width: inherit;
+    }
+    .exchange .exchange-item .card{
+        font-size: 12px;
+        padding: 5px 2px;
+    }
+
+    .exchange .exchange-item .btn{
+        padding: 10px 2px;
+        font-size: 12px;
+    }
+}
+
+@media (min-width: 576px) {
+    .modal-dialog {
+        max-width: 560px;
+    }
+}
+.copied-text{
+    margin-left: 10px;
+    font-size: 18px;
+    margin-bottom: 0;
+    padding: 4px 10px;
+    display: none;
+}
+.copy-referral{
+    max-width: 350px;
+}

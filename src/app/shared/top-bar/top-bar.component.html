@@ -1,0 +1,47 @@
+<div class="row content-top-bar">
+    <div class="col-md-5">
+        <div><label>Earn by referring new members <a class="blue">learn more.</a></label></div>
+        <div class="input-group copy-referral d-inline-flex ">
+            <input class="form-control" placeholder="" [(ngModel)]="share_url" type="text" readonly>
+            <span class="input-group-btn">
+                <button class="btn btn-raised btn-primary" type="button" (click)="copyReferral()" ngxClipboard
+                        [cbContent]="share_url"><i class="fa fa-clipboard" aria-hidden="true"></i> Copy</button>
+            </span>
+        </div>
+        <div class="alert alert-success copied-text" id="copied-text">Copied</div>
+    </div>
+    <div class="col-md-7 exchange">
+        <div class="exchange-item">
+            <div class="card display-inline-block  btn-round">
+                <span>LTC wallet</span>
+                <span>{{ coins.LTC.available_balance }}</span>
+            </div>
+        </div>
+        <div class="exchange-item">
+          <div class="display-inline-block">
+            <button class="btn btn-lg btn-raised btn-round btn-info" (click)="openNotAvaliableModal()"><span class="arrows"><<</span> Exchange
+              <span class="arrows">>></span>
+            </button>
+          </div>
+        </div>
+        <div class="exchange-item">
+            <div class="card display-inline-block  btn-round">
+                <span>BHCH Coin wallet</span>
+                <span>{{ coins.ABC.available_balance }}</span>
+            </div>
+        </div>
+        <div class="exchange-item">
+            <div class="display-inline-block">
+                <button class="btn btn-lg btn-raised btn-round btn-info" (click)="openNotAvaliableModal()"><span class="arrows"><<</span> Exchange
+                    <span class="arrows">>></span>
+                </button>
+            </div>
+        </div>
+        <div class="exchange-item">
+            <div class="card display-inline-block  btn-round">
+                <span>Bitcoin wallet</span>
+                <span>{{ coins.BTC.available_balance }}</span>
+            </div>
+        </div>
+    </div>
+</div>

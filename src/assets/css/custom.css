@@ -1,0 +1,80 @@
+.top-navbar {
+    background-color: #000;
+}
+
+.app-sidebar .sidebar-header,
+.app-sidebar .sidebar-user,
+.app-sidebar .sidebar-header .logo,
+.app-sidebar .navigation li > a,
+.app-sidebar .navigation li a i,
+.off-canvas-sidebar .navigation li > a,
+.off-canvas-sidebar .navigation li a i {
+    color: #fff;
+}
+
+.app-sidebar .sidebar-user a:hover,
+.app-sidebar .navigation li:hover > a,
+.off-canvas-sidebar .navigation li:hover > a {
+    color: #c4c4c4;
+}
+
+.app-sidebar .sidebar-user {
+    padding: 5px 10px;
+    position: relative;
+    z-index: 4;
+}
+
+.wrapper.nav-collapsed .app-sidebar:hover .sidebar-user .user_info,
+.app-sidebar .sidebar-user .user-img,
+.app-sidebar .sidebar-user .user_info {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.wrapper.nav-collapsed .app-sidebar .sidebar-user .user_info {
+    display: none;
+}
+
+.wrapper.nav-collapsed .app-sidebar .sidebar-user .user-img img {
+    width: 40px;
+    height: 40px;
+}
+
+.wrapper.nav-collapsed .app-sidebar:hover .sidebar-user .user-img img,
+.app-sidebar .sidebar-user .user-img img {
+    width: 100px;
+    height: 100px;
+}
+
+.app-sidebar .sidebar-user .user_info hr {
+    margin: 2px 0;
+}
+
+.app-sidebar .sidebar-user .user_info .user_menu {
+    font-size: 13px;
+}
+
+.app-sidebar .sidebar-content, .off-canvas-sidebar .sidebar-content {
+    height: auto;
+    touch-action: pan-y;
+}
+
+.ps-container {
+    touch-action: pan-y;
+}
+
+.border-blue {
+    border-color: #4285f4 !important;
+}
+
+.btn-blue {
+    border-radius: 1.5rem !important;
+}
+
+.btn-in-table {
+    margin: 0px 5px
+}
+
+.btn-white {
+    border-radius: 1.5rem !important;
+}

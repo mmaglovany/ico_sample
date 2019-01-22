@@ -1,0 +1,216 @@
+<div class="row register-container">
+  <div class="col-12 d-flex align-items-center justify-content-center">
+    <div class="card  text-center width-850">
+      <div class="card-header">
+        <div class="d-inline-block float-left">
+          <a routerLink="/">
+            <img src="../../../assets/img/ABClogo.png">
+          </a>
+        </div>
+        <div class="float-right register-menu">
+          <a routerLink="/register"
+             class="display-inline-block border-bottom border-blue text-bold-600 text-dark">Sign Up</a>
+          <a routerLink="/login"
+             class="display-inline-block border-bottom border-white text-bold-600 text-dark">Sign In</a>
+        </div>
+      </div>
+      <div *ngIf="!confirmation" class="card-body bg-light">
+        <div class="card-block">
+          <h4 class="d-block register-header">Create an <span class="blue">account?</span></h4>
+          <form class="row" name="form" (ngSubmit)="f.form.valid && register()" #f="ngForm" novalidate>
+            <div *ngIf="error" class="alert alert-danger col-12 " [innerHTML]="error"></div>
+
+            <div class="col-md-6">
+              <div class="form-group " [ngClass]="{ 'has-error': f.submitted && !email.valid }">
+                <div class="position-relative has-icon-left">
+                  <input type="email" class="form-control  text-dark" id="email" name="email"
+                         [(ngModel)]="model.email"
+                         email
+                         #email="ngModel"
+                         placeholder="Email"
+                         required/>
+                  <div class="form-control-position">
+                    <i class="ft-mail"></i>
+                  </div>
+                </div>
+                <div *ngIf="f.submitted && !email.valid" class="help-block text-danger">Email is not valid
+                </div>
+              </div>
+
+              <div class="form-group "
+                   [ngClass]="{ 'has-error': f.submitted && !password.valid && password.value != confirm_password.value }">
+                <div class="position-relative has-icon-left">
+                  <input type="password" class="form-control  text-dark" id="password" name="password"
+                         [(ngModel)]="model.password"
+                         pattern="(?=^.{8,}$)((?=.*\d)|(?=.*\W+))(?![.\n])(?=.*[A-Z])(?=.*[a-z]).*$"
+                         #password="ngModel"
+                         placeholder="Password"
+                         maxlength="32"
+                         required/>
+                  <div class="form-control-position">
+                    <i class="ft-lock"></i>
+                  </div>
+                </div>
+                <div *ngIf="password.value != '' && !password.valid" class="help-block text-danger">Password
+                  mast contain 1 upper case, 1 lower case, 1 numeric, 1 symbol.
+                </div>
+                <div *ngIf="password.value != '' && model.password.length < 8 "
+                     class="help-block text-danger">Passwords min
+                  length 8 chars
+                </div>
+              </div>
+
+              <div class="form-group "
+                   [ngClass]="{ 'has-error': f.submitted && !confirm_password.valid }">
+                <div class="position-relative has-icon-left">
+                  <input type="password" class="form-control  text-dark" id="confirm_password"
+                         name="confirm_password"
+                         [(ngModel)]="model.confirm_password"
+                         #confirm_password="ngModel"
+                         placeholder="Confirm Password"
+                         required/>
+                  <div class="form-control-position">
+                    <i class="ft-lock"></i>
+                  </div>
+                </div>
+                <div *ngIf="f.submitted && !confirm_password.valid" class="help-block text-danger">Confirm
+                  password is
+                  required
+                </div>
+                <div *ngIf="confirm_password.value != '' && password.value != confirm_password.value"
+                     class="help-block">Passwords not match
+                </div>
+                <div *ngIf="confirm_password.value != '' && model.confirm_password.length < 6"
+                     class="help-block text-danger">
+                  Passwords min length 6 chars
+                </div>
+              </div>
+
+            </div>
+
+            <div class="col-md-6">
+              <div class="form-group " [ngClass]="{ 'has-error': f.submitted && !user_name.valid }">
+                <div class="position-relative has-icon-left">
+                  <input type="text" class="form-control  text-dark" id="user_name" name="user_name"
+                         [(ngModel)]="model.user_name"
+                         #user_name="ngModel"
+                         placeholder="User name"
+                         (input)="checkUserName()"
+                         required/>
+                  <div class="form-control-position">
+                    <i class="ft-user"></i>
+                  </div>
+                </div>
+                <div *ngIf="f.submitted && !user_name.valid" class="help-block text-danger">User name is
+                  required
+                </div>
+                <div *ngIf="username_taken" class="help-block text-danger">User name is taken</div>
+              </div>
+
+              <div class="form-group " [ngClass]="{ 'has-error': f.submitted }">
+                <div class="position-relative has-icon-left">
+                  <input type="text" class="form-control  text-dark" id="referral" name="referral"
+                         [(ngModel)]="model.referral"
+                         #referral="ngModel"
+                         (input)="checkRefferalName()"
+                         placeholder="If you dont have sponsor. Then leave it blank"/>
+                  <div class="form-control-position">
+                    <i class="ft-user"></i>
+                  </div>
+                </div>
+                <div *ngIf="model.referral != '' && !refferal_exist" class="help-block text-danger">User name not
+                  exist
+                </div>
+                <!-- <div *ngIf="model.referral != '' && refferal_exist" class="help-block text-success">User name exist</div>-->
+              </div>
+
+              <div class="form-group">
+                <div>
+                  <input type="phone-select" class="form-control col-12 text-dark" id="phone_number"
+                         name="phone_number"
+                         [(ngModel)]="model.phone_number"
+                         #phone_number="ngx-phone-select"
+                         ngxPhoneSelect
+                         (keyup)="validators()"
+                  />
+                </div>
+                <div *ngIf="f.submitted && !phone_number_valid" class="help-block text-danger">Phone number
+                  invalid
+                </div>
+              </div>
+            </div>
+
+            <div class="form-group col-md-12">
+              <re-captcha (resolved)="resolved($event)"  [(ngModel)]="recapcha"  [ngModelOptions]="{standalone: true}"
+                          siteKey="6LcoU4oUAAAAAA7LoS3Qr2bAaCXxPc0xcYNdHohs"></re-captcha>
+            </div>
+
+            <div class="form-group col-md-12"
+                 [ngClass]="{ 'has-error': f.submitted && !terms_agreement.value }">
+              <label class="custom-control custom-checkbox mb-2 mr-sm-2 mb-sm-0">
+                <input type="checkbox" id="terms_agreement" name="terms_agreement"
+                       class="custom-control-input"
+                       [(ngModel)]="model.terms_agreement"
+                       #terms_agreement="ngModel"
+                       required/>
+                <span class="custom-control-indicator ml-4"></span>
+                <span class="pl-4 line-height-2">I agree to the terms and conditions.</span>
+              </label>
+              <div *ngIf="f.submitted && !terms_agreement.value" class="help-block text-danger">Terms agreement is
+                required
+              </div>
+            </div>
+
+            <div class="form-group col-md-12">
+              <button [disabled]="loading" type="submit"
+                      class="register-button col-sm-8 btn btn-lg btn-raised btn-round btn-info">
+                Register
+              </button>
+              <img *ngIf="loading"
+                   src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+            </div>
+            <div class="col-md-12">
+              <a routerLink="/login">Back to Login</a>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <div *ngIf="confirmation" class="card-body bg-light">
+        <div class="card-block">
+          <h4 class="d-block register-header">Confirm your <span class="primary">email!</span></h4>
+          <form class="row" class="offset-md-3 col-md-6" name="form_confirm"
+                (ngSubmit)="fc.form.valid && confirm_email()" #fc="ngForm"
+                novalidate>
+            <div *ngIf="error" class="alert alert-danger" [innerHTML]="error"></div>
+            <div class="form-group  "
+                 [ngClass]="{ 'has-error': fc.submitted && !confirm_code.valid }">
+              <div class="position-relative has-icon-left">
+                <input type="text" class="form-control  text-dark" id="confirm_code" name="confirm_code"
+                       [(ngModel)]="confirmation_code"
+                       #confirm_code="ngModel"
+                       placeholder="Confirmation code"
+                       required/>
+                <div class="form-control-position">
+                  <i class="ft-mail"></i>
+                </div>
+              </div>
+              <div *ngIf="fc.submitted && !confirm_code.valid" class="help-block">Code is required</div>
+            </div>
+            <div class="form-group  col-md-12">
+              <button [disabled]="loading" type="submit"
+                      class="register-button col-sm-8 btn btn-lg btn-raised btn-round btn-info">
+                Confirm
+              </button>
+              <img *ngIf="loading"
+                   src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+            </div>
+            <div class="col-md-12">
+              <a routerLink="/login">Back to Login</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

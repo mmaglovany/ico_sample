@@ -1,0 +1,22 @@
+{
+  "/referrals": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/auth": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/admin": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/ico": {
+    "target": "http://localhost:3000",
+    "secure": false
+  },
+  "/wallet": {
+    "target": "http://localhost:3000",
+    "secure": false
+  }
+}

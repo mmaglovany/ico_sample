@@ -1,0 +1,40 @@
+<div class="ico_modal">
+    <div class="modal-body">
+        <div>
+            <h1>Confirm Order</h1>
+        </div>
+        <div>
+            <p>You are buying <strong>{{ units }}</strong> BHCH</p>
+            <p>With <strong>{{ total }}</strong> {{ coin_name }}</p>
+        </div>
+        <div>
+            <div *ngIf="is_tfa_active" class="form-group" >
+                <div class="tfa-code"><i
+                        class="ft-tablet"></i>2FA Code
+                    <input type="text" placeholder="000 000" name="tfa_auth" class="form-control"
+                           #tfa_auth="ngModel" [(ngModel)]="tfa" required></div>
+            </div>
+            <div *ngIf="tfa_auth_error" class="help-block col-sm-12 text-danger">2FA Code is required</div>
+        </div>
+        <div *ngIf="success" class="alert alert-success col-12"><h2>Congrats ! You have successfully purchased BHCH
+            coins.</h2></div>
+        <div *ngIf="error" class="alert alert-danger col-12">
+            <div *ngFor="let error of errors;">{{ error }}</div>
+        </div>
+    </div>
+    <div *ngIf="!success" class="modal-footer">
+        <button [disabled]="loading" type="button" class="btn btn-info text-white" (click)="buyCoins()">
+            Confirm
+            <img *ngIf="loading"
+                 src="data:image/gif;base64,R0lGODlhEAAQAPIAAP///wAAAMLCwkJCQgAAAGJiYoKCgpKSkiH/C05FVFNDQVBFMi4wAwEAAAAh/hpDcmVhdGVkIHdpdGggYWpheGxvYWQuaW5mbwAh+QQJCgAAACwAAAAAEAAQAAADMwi63P4wyklrE2MIOggZnAdOmGYJRbExwroUmcG2LmDEwnHQLVsYOd2mBzkYDAdKa+dIAAAh+QQJCgAAACwAAAAAEAAQAAADNAi63P5OjCEgG4QMu7DmikRxQlFUYDEZIGBMRVsaqHwctXXf7WEYB4Ag1xjihkMZsiUkKhIAIfkECQoAAAAsAAAAABAAEAAAAzYIujIjK8pByJDMlFYvBoVjHA70GU7xSUJhmKtwHPAKzLO9HMaoKwJZ7Rf8AYPDDzKpZBqfvwQAIfkECQoAAAAsAAAAABAAEAAAAzMIumIlK8oyhpHsnFZfhYumCYUhDAQxRIdhHBGqRoKw0R8DYlJd8z0fMDgsGo/IpHI5TAAAIfkECQoAAAAsAAAAABAAEAAAAzIIunInK0rnZBTwGPNMgQwmdsNgXGJUlIWEuR5oWUIpz8pAEAMe6TwfwyYsGo/IpFKSAAAh+QQJCgAAACwAAAAAEAAQAAADMwi6IMKQORfjdOe82p4wGccc4CEuQradylesojEMBgsUc2G7sDX3lQGBMLAJibufbSlKAAAh+QQJCgAAACwAAAAAEAAQAAADMgi63P7wCRHZnFVdmgHu2nFwlWCI3WGc3TSWhUFGxTAUkGCbtgENBMJAEJsxgMLWzpEAACH5BAkKAAAALAAAAAAQABAAAAMyCLrc/jDKSatlQtScKdceCAjDII7HcQ4EMTCpyrCuUBjCYRgHVtqlAiB1YhiCnlsRkAAAOwAAAAAAAAAAAA=="/>
+        </button>
+        <button type="button" class="btn btn-secondary btn-raised" (click)="activeModal.close(closeResult)">
+            Cancel
+        </button>
+    </div>
+    <div *ngIf="success" class="modal-footer">
+        <button type="button" class="btn btn-secondary btn-raised" (click)="activeModal.close(closeResult)">
+            Close
+        </button>
+    </div>
+</div>
